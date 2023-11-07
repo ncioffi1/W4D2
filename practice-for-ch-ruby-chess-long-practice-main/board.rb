@@ -38,7 +38,6 @@ class Board
     end
 
     def setup_board
-
         (0...@rows.length).each do |y|
             (0...@rows.length).each do |x|
                 pos = [x, y]
@@ -58,10 +57,18 @@ class Board
         self[pos] = piece
     end
 
-    def print
+    def print_board
         @rows.each do |row|
-            print row.join
+            row.each do |ele|
+                if ele == nil
+                    print "_"
+                else
+                    print "P"
+                end
+            end
+            print "\n"
         end
+        return nil
     end
 
     def checkmate?(color)
