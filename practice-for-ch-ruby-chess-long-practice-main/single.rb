@@ -1,0 +1,2 @@
+module Single
+end
