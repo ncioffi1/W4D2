@@ -1,4 +1,8 @@
+require_relative "piece.rb"
+
 class Board 
+
+    attr_reader :rows
 
     def initialize
         @rows = Array.new(8) {Array.new(8)} 
@@ -16,7 +20,7 @@ class Board
     end
 
     def move_piece(color, start_pos, end_pos)
-        if valid_pos?(self[end_pos])
+        if valid_pos?(end_pos)
             piece = self[start_pos] 
             self[end_pos] = piece
             self[start_pos] = nil
@@ -26,14 +30,38 @@ class Board
     def valid_pos?(pos)
         x, y = pos
         if x >= 0 && x <= 7 && y >= 0 && y <= 7
-            if self[pos].empty?
+            if self[pos].nil?
                 return true
             end
         end
         return false
     end
 
+    def setup_board
+
+        (0...@rows.length).each do |y|
+            (0...@rows.length).each do |x|
+                pos = [x, y]
+                if x == 0 || x == 1
+                    add_piece(Piece.new("white", self, pos), pos)
+                elsif x == 6 || x == 7
+                    add_piece(Piece.new("black", self, pos), pos)
+                end
+    
+            end
+        end
+
+    end
+
+
     def add_piece(piece, pos)
+        self[pos] = piece
+    end
+
+    def print
+        @rows.each do |row|
+            print row.join
+        end
     end
 
     def checkmate?(color)
@@ -55,3 +83,7 @@ class Board
     end
 
 end
+
+# b = Board.new
+
+# p b.rows
