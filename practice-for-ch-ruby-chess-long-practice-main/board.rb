@@ -1,4 +1,11 @@
 require_relative "piece.rb"
+require_relative "bishop.rb"
+require_relative "king.rb"
+require_relative "rook.rb"
+require_relative "knight.rb"
+require_relative "queen.rb"
+require_relative "pawn.rb"
+# require_relative "null_piece.rb"
 
 class Board 
 
@@ -20,9 +27,10 @@ class Board
     end
 
     def setup_back_row(color, row)
-
         back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
-
+        if color == "black"
+            back_row = [Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook]
+        end
         
         back_row.each_with_index do |piece_class, i|
             pos = [row, i]
