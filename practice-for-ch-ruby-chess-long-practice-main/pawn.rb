@@ -31,7 +31,7 @@ class Pawn < Piece
         moves_arr = []
 
         if at_start_row?
-
+            
         end
     end
 
