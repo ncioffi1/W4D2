@@ -7,6 +7,8 @@ require_relative "queen.rb"
 require_relative "pawn.rb"
 require_relative "null_piece.rb"
 
+require 'colorize'
+
 class Board 
 
     attr_reader :rows
@@ -28,7 +30,7 @@ class Board
 
     def setup_back_row(color, row)
         back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
-        if color == "black"
+        if color == :black
             back_row = [Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook]
         end
         
@@ -80,13 +82,13 @@ class Board
 
         (0...@rows.length).each do |x|
             if x == 0
-                setup_back_row("black", x) 
+                setup_back_row(:black, x) 
             elsif x == 1
-                setup_pawn_row("black", x)
+                setup_pawn_row(:black, x)
             elsif x == 6
-                setup_pawn_row("white", x)
+                setup_pawn_row(:white, x)
             elsif x == 7
-                setup_back_row("white", x)
+                setup_back_row(:white, x)
             else
                 setup_null_row(x)
             end
