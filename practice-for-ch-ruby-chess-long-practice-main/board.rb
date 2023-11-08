@@ -13,7 +13,7 @@ class Board
 
     def initialize
         @rows = Array.new(8) {Array.new(8)} 
-        
+        # @null_piece = NullPiece.new
     end
 
     def [](pos)
@@ -87,9 +87,18 @@ class Board
                 setup_pawn_row("white", x)
             elsif x == 7
                 setup_back_row("white", x)
+            else
+                setup_null_row(x)
             end
         end
 
+    end
+
+    def setup_null_row(x)
+        (0..7).each do |y|
+            pos = [x, y]
+            self[pos] = NullPiece.instance
+        end
     end
 
     def add_piece(piece, pos)
@@ -99,8 +108,8 @@ class Board
     def print_board
         @rows.each do |row|
             row.each do |ele|
-                if ele == nil
-                    print "_"
+                if ele == NullPiece.instance
+                    print " "
                 else
                     print ele.symbol
                 end
