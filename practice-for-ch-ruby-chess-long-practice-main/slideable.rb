@@ -1,3 +1,5 @@
+require "byebug"
+
 module Slideable
 
     HORIZONTAL_AND_VERTICAL_DIRS = [
@@ -25,12 +27,13 @@ module Slideable
     
      
       def moves
-      
         moves_arr = []
         dirs = move_dirs
 
         dirs.each do |dir|
-            moves_arr << grow_unblocked_moves_in_dir(dir)
+            dir_x = dir[0]
+            dir_y = dir[1]
+            moves_arr += grow_unblocked_moves_in_dir(dir_x, dir_y)
         end
         return moves_arr
 
@@ -44,15 +47,14 @@ module Slideable
     
      
       def grow_unblocked_moves_in_dir(dx, dy)
-   
         possible_moves = []
 
-        current_pos = self.pos
+        # current_pos = self.pos
+        current_pos = [self.pos[0] + dx, self.pos[1] + dy]
     
-        while self.board.valid_pos?(current_pos)
-
-            current_pos[0] += dx
-            current_pos[1] += dy
+        while self.board.valid_idx?(current_pos)
+            # current_pos[0] += dx
+            # current_pos[1] += dy
 
             if self.board.valid_pos?(current_pos)
                 possible_moves << current_pos
@@ -64,7 +66,7 @@ module Slideable
                     break
                 end
             end
-            
+            current_pos = [current_pos[0] + dx, current_pos[1] + dy]
         end
         possible_moves
       
