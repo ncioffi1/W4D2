@@ -19,13 +19,26 @@ class Board
         @rows[x][y] = val
     end
 
-    def setup_back_row
+    def setup_back_row(color, row)
+
         back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
 
-        back_row.each_with_index do |class, i1|
-            class.new()
-                add_piece(Piece.new("white", self, pos), pos)
+        
+        back_row.each_with_index do |piece_class, i|
+            pos = [row, i]
+
+            piece_class.new(color, self, pos)
+
         end
+    end
+
+    def setup_pawn_row(color, row)
+
+        (0..7).each do |i|
+            pos = [row, i]
+            Pawn.new(color, self, pos)
+        end
+
     end
 
     def move_piece(color, start_pos, end_pos)
@@ -47,25 +60,20 @@ class Board
     end
 
     def setup_board
-        back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
 
-        (0...@rows.length).each do |y|
-            (0...@rows.length).each do |x|
-                pos = [x, y]
-                back_row.each do |my_class|
-                    if x == 0
-                        add_piece(my_class.new("white", self, pos), pos)
-                    elsif x == 7
-                        add_piece(my_class.new("black", self, pos), pos)
-                    end
-                end
-            
-    
+        (0...@rows.length).each do |x|
+            if x == 0
+                setup_back_row("black", x) 
+            elsif x == 1
+                setup_pawn_row("black", x)
+            elsif x == 6
+                setup_pawn_row("white", x)
+            elsif x == 7
+                setup_back_row("white", x)
             end
         end
 
     end
-
 
     def add_piece(piece, pos)
         self[pos] = piece

@@ -13,7 +13,7 @@ class Piece
         @color = color
         @board = board
         @pos = pos
-        # @symbol = symbol   # :K, :Q, :R, 
+        board.add_piece(self, pos)
     end
 
     def to_s
