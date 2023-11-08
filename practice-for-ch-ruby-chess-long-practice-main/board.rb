@@ -6,7 +6,7 @@ class Board
 
     def initialize
         @rows = Array.new(8) {Array.new(8)} 
-        # @null_piece = 
+        
     end
 
     def [](pos)
@@ -17,6 +17,15 @@ class Board
     def []=(pos, val)
         x, y = pos
         @rows[x][y] = val
+    end
+
+    def setup_back_row
+        back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+
+        back_row.each_with_index do |class, i1|
+            class.new()
+                add_piece(Piece.new("white", self, pos), pos)
+        end
     end
 
     def move_piece(color, start_pos, end_pos)
@@ -38,14 +47,19 @@ class Board
     end
 
     def setup_board
+        back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+
         (0...@rows.length).each do |y|
             (0...@rows.length).each do |x|
                 pos = [x, y]
-                if x == 0 || x == 1
-                    add_piece(Piece.new("white", self, pos), pos)
-                elsif x == 6 || x == 7
-                    add_piece(Piece.new("black", self, pos), pos)
+                back_row.each do |my_class|
+                    if x == 0
+                        add_piece(my_class.new("white", self, pos), pos)
+                    elsif x == 7
+                        add_piece(my_class.new("black", self, pos), pos)
+                    end
                 end
+            
     
             end
         end

@@ -1,13 +1,19 @@
+require_relative "pieces/bishop.rb"
+require_relative "pieces/king.rb"
+require_relative "pieces/knight.rb"
+require_relative "pieces/pawn.rb"
+require_relative "pieces/queen.rb"
+require_relative "pieces/rook.rb"
 
 
 class Piece
 
     attr_reader :color
-    def initialize(color, board, pos, symbol)
+    def initialize(color, board, pos)
         @color = color
         @board = board
         @pos = pos
-        @symbol = symbol   # :K, :Q, :R, 
+        # @symbol = symbol   # :K, :Q, :R, 
     end
 
     def to_s
