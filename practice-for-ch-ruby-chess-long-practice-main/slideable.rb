@@ -9,24 +9,23 @@ module Slideable
         [1, 0] 
       ].freeze
 
-      DIAGONAL_DIRS = [
+    DIAGONAL_DIRS = [
         [-1, 1],
         [-1, -1], 
         [1, 1],
         [1, -1] 
-      ].freeze
-    
-    
-      def horizontal_and_vertical_dirs
+     ].freeze
+
+    def horizontal_and_vertical_dirs
         HORIZONTAL_AND_VERTICAL_DIRS
-      end
+    end
+
+    def diagonal_dirs
+        DIAGONAL_DIRS
+    end
+
     
-      def diagonal_dirs
-       DIAGONAL_DIRS
-      end
-    
-     
-      def moves
+    def moves
         moves_arr = []
         dirs = move_dirs
 
@@ -37,21 +36,21 @@ module Slideable
         end
         return moves_arr
 
-      end
-    
-      private
-    
-      def move_dirs
+    end
+
+    # private
+
+    def move_dirs
         raise NotImplementedError
-      end
+    end
+
     
-     
-      def grow_unblocked_moves_in_dir(dx, dy)
+    def grow_unblocked_moves_in_dir(dx, dy)
         possible_moves = []
 
         # current_pos = self.pos
         current_pos = [self.pos[0] + dx, self.pos[1] + dy]
-    
+
         while self.board.valid_idx?(current_pos)
             # current_pos[0] += dx
             # current_pos[1] += dy
@@ -69,7 +68,6 @@ module Slideable
             current_pos = [current_pos[0] + dx, current_pos[1] + dy]
         end
         possible_moves
-      
     end
-
+      
 end

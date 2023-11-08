@@ -1,25 +1,64 @@
 module Stepable
+
     KING_MOVES = [
-        [0]
-    ]
-  def moves
-    # create an array to collect moves
+        [0, -1], 
+        [0, 1], 
+        [-1, 0],
+        [1, 0],
+        [-1, 1],
+        [-1, -1], 
+        [1, 1],
+        [1, -1]
+    ].freeze
 
-    # iterate through each of the piece's possible move_diffs
-      # for each diff, increment the piece's position to generate a new position
-      # add the new position to the moves array if it is:
-        # valid, on the board and empty
-        # OR on the board and contains a pice of the opposite color
+    KNIGHT_MOVES = [
+        [-1, 2], 
+        [1, 2],
+        [-2, 1], 
+        [2, 1],
+        [-2, -1], 
+        [2, -1],
+        [-1, -2], 
+        [1, -2]
+    ].freeze
 
-    # return final array of moves
-  end
+    def king_moves
+        KING_MOVES
+    end
 
-  private
+    def knight_moves
+        KNIGHT_MOVES
+    end
+    
+    def moves
 
-  def move_diffs
-    # subclass implements this
-    raise NotImplementedError # 
-  end
+        moves_arr = []
+        dirs = move_dirs
+
+        dirs.each do |dir|
+            dir_x = dir[0]
+            dir_y = dir[1]
+            current_pos = [self.pos[0] + dir_x, self.pos[1] + dir_y]
+
+            if self.board.valid_pos?(current_pos)
+                moves_arr << current_pos
+            elsif self.board.valid_idx?(current_pos)
+                if self.board[current_pos].color == self.color
+                else
+                    moves_arr << current_pos
+                end
+            end
+
+        end
+        return moves_arr
+
+    end
+
+    # private
+
+    def move_dirs
+        raise NotImplementedError
+    end
+
 end
 
-end
