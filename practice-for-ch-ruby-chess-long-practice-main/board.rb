@@ -30,9 +30,6 @@ class Board
 
     def setup_back_row(color, row)
         back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
-        if color == :black
-            back_row = [Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook]
-        end
         
         back_row.each_with_index do |piece_class, i|
             pos = [row, i]
