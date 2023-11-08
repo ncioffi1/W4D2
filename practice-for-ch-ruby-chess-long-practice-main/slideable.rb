@@ -23,9 +23,9 @@ module Slideable
        DIAGONAL_DIRS
       end
     
-      # should return an array of all the places a Piece can move to
+     
       def moves
-        # create an array to collect moves
+      
         moves_arr = []
         dirs = move_dirs
 
@@ -34,47 +34,40 @@ module Slideable
         end
         return moves_arr
 
-        # iterate over each of the directions in which a slidable piece can move
-          # use the Piece subclass `#move_dirs` method to get the info on each direction 
-          # for each direction, collect all possible moves in that direction
-            # add moves to our moves array
-            #(use the `grow_unblocked_moves_in_dir` helper method)
-    
-    
-        # return the final array of moves (containing all possible moves in all directions)
       end
     
       private
     
       def move_dirs
-        # subclass implements this
-        raise NotImplementedError # this only executes if we don't implement in subclass
+        raise NotImplementedError
       end
     
-      # this helper method is only responsible for collecting the moves in a given direction. Not all directions
-      # the given direction is represented by tow args, the combindation of a dx and dy
+     
       def grow_unblocked_moves_in_dir(dx, dy)
-        # create an array to collect moves
+   
         possible_moves = []
 
-        # get the piece's current row and col 
         current_pos = self.pos
     
         while self.board.valid_pos?(current_pos)
+
+            current_pos[0] += dx
+            current_pos[1] += dy
+
+            if self.board.valid_pos?(current_pos)
+                possible_moves << current_pos
+            elsif self.board.valid_idx?(current_pos)
+                if self.board[current_pos].color == self.color
+                    break
+                else
+                    possible_moves << current_pos
+                    break
+                end
+            end
             
         end
-        #in a loop:
-          # increment the the piece's current rol and col by dx and dy to generate a new position
-          # stop incrementing if our new position is invalid (i.e. not on the board)
-          # if the new position is empty, the piece can move here, so add the new position to the moves array
-          # if the new position is occupied with a pices of the opposite color, our piece can move here (to caputer the opposing pice), so add the new position ot our moves array
-            # but, the piece cannot continue past this point. So stop the loop
-          # if the new position is occupied by a piece of the same color 
-            # stop looping, do not add new position to moves array
-    
-    
-        # return the array of moves for a given direction
-      end
+        possible_moves
+      
     end
 
 end

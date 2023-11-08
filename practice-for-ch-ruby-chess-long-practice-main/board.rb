@@ -57,6 +57,15 @@ class Board
         end
     end
 
+    def valid_idx?(pos)
+        x, y = pos
+        if x >= 0 && x <= 7 && y >= 0 && y <= 7
+            return true
+        end
+        return false
+    end
+
+
     def valid_pos?(pos)
         x, y = pos
         if x >= 0 && x <= 7 && y >= 0 && y <= 7
@@ -93,7 +102,7 @@ class Board
                 if ele == nil
                     print "_"
                 else
-                    print "P"
+                    print ele.symbol
                 end
             end
             print "\n"
