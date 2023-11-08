@@ -24,14 +24,16 @@ module Slideable
       end
     
       # should return an array of all the places a Piece can move to
-      def moves(directions)
+      def moves
         # create an array to collect moves
-        # moves_arr = []
+        moves_arr = []
+        dirs = move_dirs
 
+        dirs.each do |dir|
+            moves_arr << grow_unblocked_moves_in_dir(dir)
+        end
+        return moves_arr
 
-
-
-    
         # iterate over each of the directions in which a slidable piece can move
           # use the Piece subclass `#move_dirs` method to get the info on each direction 
           # for each direction, collect all possible moves in that direction
@@ -55,6 +57,7 @@ module Slideable
         # create an array to collect moves
     
         # get the piece's current row and col 
+        pos = self.pos
     
         #in a loop:
           # increment the the piece's current rol and col by dx and dy to generate a new position
