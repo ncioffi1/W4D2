@@ -55,10 +55,14 @@ module Slideable
       # the given direction is represented by tow args, the combindation of a dx and dy
       def grow_unblocked_moves_in_dir(dx, dy)
         # create an array to collect moves
-    
+        possible_moves = []
+
         # get the piece's current row and col 
-        pos = self.pos
+        current_pos = self.pos
     
+        while self.board.valid_pos?(current_pos)
+            
+        end
         #in a loop:
           # increment the the piece's current rol and col by dx and dy to generate a new position
           # stop incrementing if our new position is invalid (i.e. not on the board)
